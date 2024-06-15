@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+{% block hystCSS %}
+<link rel="stylesheet" href="{% static 'PassFort/css/hystmodal.min.css' %}" />
+{% endblock hystCSS %}
+{% block title %}Главная{% endblock title %}
+{% block content %}
+<main class="mt-16 sm:mt-[5.5rem] md:mt-24 px-4 container mx-auto">
+  <div class="flex flex-wrap -mx-4">
+    {% for account in accounts %}
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
+      <div class="bg-white/60 backdrop-blur-md overflow-hidden rounded-xl shadow-xl max-w-sm mx-auto">
+        <div class="bg-teal-600 shadow-md grid grid-cols-8 items-center px-2 py-1">
+          <div class="flex items-center col-span-7">
+            <button class="mr-3 my-1 copy-username" data-account-username="{{ account.username }}">
+              <svg class="size-7 text-white hover:text-slate-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.5 3.375c0-1.036.84-1.875 1.875-1.875h.375a3.75 3.75 0 0 1 3.75 3.75v1.875C13.5 8.161 14.34 9 15.375 9h1.875A3.75 3.75 0 0 1 21 12.75v3.375C21 17.16 20.16 18 19.125 18h-9.75A1.875 1.875 0 0 1 7.5 16.125V3.375Z" />
+                <path d="M15 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 17.25 7.5h-1.875A.375.375 0 0 1 15 7.125V5.25ZM4.875 6H6v10.125A3.375 3.375 0 0 0 9.375 19.5H16.5v1.125c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V7.875C3 6.839 3.84 6 4.875 6Z" />
+              </svg>
+            </button>
+            <h1 class="text-white text-xl font-bold tracking-wide truncate">{{ account.username }}</h1>
+          </div>
+          <button class="delete-card relative justify-self-end" data-account-slug="{{ account.slug }}">
+            <span class="tooltip-left peer text-xs text-white bg-black rounded py-1 px-2 absolute right-7 hidden">Удалить</span>
+            <svg class="text-white hover:text-red-600 peer-hover:text-red-600 stroke-2 size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="px-4 py-2">
+          <h3 class="text-gray-900 font-semibold leading-tight">Пароль:</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-gray-700 font-mono truncate">************</p>
+            <button class="copy-password" data-account-slug="{{ account.slug }}">
+              <svg class="size-6 text-gray-700 hover:text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+              </svg>
+            </button>
+          </div>
+          <h3 class="text-gray-900 font-semibold leading-tight mt-2">Сайт:</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-gray-700 truncate">{{ account.url }}</p>
+            <a href="https://{{ account.url }}" target="_blank">
+              <svg class="size-6 text-gray-700 hover:text-teal-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </div>
+          <h3 class="text-gray-900 font-semibold leading-tight mt-2">Примечание:</h3>
+          {% if account.description %}
+          <p class="font-light text-gray-900 truncate">{{ account.description }}</p>
+          {% else %}
+          <p class="font-light text-gray-900 truncate">Примечание отсутствует</p>
+          {% endif %}
+        </div>
+        <div class="px-4 pt-1 pb-3">
+          {% comment %} data-hystmodal="#acc-modal-{{ account.slug }}" {% endcomment %}
+          <button class="btn_card"  onclick="location.href='{% url 'passfort:account_update' account.slug %}'">Подробнее</button>
+        </div>
+      </div>
+    </div>
+    {% comment %}
+    <div class="hystmodal" id="acc-modal-{{ account.slug }}" aria-hidden="true">
+      <div class="hystmodal__wrap">
+        <div class="hystmodal__window rounded-md" role="dialog" aria-modal="true">
+          <button data-hystclose class="hystmodal__close">Закрыть</button>
+          <!-- HTML код модального окна -->
+          {% include 'PassFort/includes/acc_modal.html' with account=account %}
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+    {% endfor %}
+    <a href="{% url 'passfort:account_create' %}" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
+      <div class="bg-white/60 backdrop-blur-md overflow-hidden rounded-xl border-2 group border-gray-300 hover:border-gray-500 border-dashed max-w-sm mx-auto">
+        <svg class="size-[264px] stroke-1 text-gray-300 group-hover:text-gray-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </div>
+    </a>
+  </div>
+</main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    window.modal = new HystModal({
+      linkAttributeName: "data-hystmodal",
+      waitTransitions: true,
+    });
+
+    const copyUsernameBtn = document.querySelectorAll('.copy-username');
+    const copyPasswordBtn = document.querySelectorAll('.copy-password');
+    const deleteAccountBtn = document.querySelectorAll('.delete-card');
+
+    copyUsernameBtn.forEach(button => {
+      button.addEventListener('click', function () {
+        const username = button.getAttribute('data-account-username');
+        navigator.clipboard.writeText(username).then(function () {
+          alert('Имя пользователя скопировано!');
+        }).catch(function (error) {
+          console.error('Ошибка копирования: ', error);
+        });
+      });
+    });
+
+    copyPasswordBtn.forEach(button => {
+      button.addEventListener('click', function () {
+        const accountSlug = button.getAttribute('data-account-slug');
+        fetch(`/copy-password/${accountSlug}/`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.redirect) {
+              window.location.href = data.url;
+            } else if (data.password) {
+              navigator.clipboard.writeText(data.password).then(function () {
+                alert('Пароль скопирован!');
+              }).catch(function (error) {
+                console.error('Ошибка копирования: ', error);
+              });
+            } else if (data.error) {
+              console.error('Ошибка: ', data.error);
+            }
+          })
+          .catch(error => {
+            console.error('Ошибка запроса: ', error);
+          });
+      });
+    });
+
+    deleteAccountBtn.forEach(button => {
+      button.addEventListener('click', function () {
+        const accountSlug = button.getAttribute('data-account-slug');
+        if (confirm('Вы уверены, что хотите удалить эту запись?')) {
+          fetch(`/accounts/delete/${accountSlug}/`, {
+            method: 'DELETE',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+          })
+          .then(response => {
+              location.reload();
+          })
+          .catch(error => {
+            console.error('Ошибка запроса: ', error);
+          });
+        }
+      });
+    });
+
+  });
+</script>
+{% endblock content %}
+{% block hystJS %}
+<script src="{% static 'PassFort/js/hystmodal.min.js' %}"></script>
+{% endblock hystJS %}

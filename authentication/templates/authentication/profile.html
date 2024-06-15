@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% load custom_tags %} {% block title %}Профиль{% endblock title %} {% block content %}
+<main class="h-screen flex justify-center items-center px-4 container mx-auto">
+  <div class="bg-white/60 backdrop-blur-md mx-auto rounded-xl shadow-xl max-w-2xl w-full overflow-hidden">
+    <form class="" method="POST" enctype="multipart/form-data" action="">
+      {% csrf_token %}
+      <!-- Аватар -->
+      <div class="bg-teal-600 px-6 py-2" id="image">
+        <div class="flex items-center space-x-4">
+          <div class="shrink-0">
+            {% if user.img %}
+            <img class="size-16 object-cover rounded-full border-2 sm:border-4 border-white" src="{{ user.img.url }}" alt="Avatar" />
+            {% else %} {% include 'includes/default_avatar.html' %} {% endif %}
+          </div>
+          <label class="block">
+            <span class="sr-only">Choose profile photo</span>
+            {{ form.img }} {% comment %} <input type="file" class="profile_input_img" /> {% endcomment %}
+          </label>
+        </div>
+      </div>
+      <!-- Конец Аватарки -->
+
+      <!-- Поля -->
+      <div class="px-6 pt-1 flex flex-col space-y-4">
+        <div class="text-red-500 text-sm font-medium">{{ form.img.errors }}</div>
+        {% for f in form %} {% if not forloop.first %}
+        <div class="flex flex-col sm:flex-row justify-between sm:items-baseline">
+          <!-- Лейбл -->
+          <label class="block text-lg font-medium text-gray-700 mb-1">{{ f.label }}</label>
+          <!-- Инпут -->
+          <div class="relative rounded-md shadow-sm">
+            {{ f|set_attrs:"class:profile_input peer" }} {% comment %} <input class="profile_input peer" type="text" /> {% endcomment %}
+            <div class="absolute pointer-events-none flex items-center right-0 inset-y-0 pr-3 text-gray-500 peer-disabled:text-gray-400">
+              {% if f == form.username %}
+              <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+              {% elif f == form.email %}
+              <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              {% elif f == form.first_name or f == form.last_name %}
+              <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z" />
+              </svg>
+              {% endif %}
+            </div>
+          </div>
+          <!-- Конец Инпута -->
+        </div>
+        {% endif %} {% endfor %}
+        <!-- Кнопка Сохранить -->
+        <button class="font-semibold text-white text-xl w-full mt-5 py-2 bg-green-500 hover:bg-green-700 rounded-lg shadow-lg hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400 transition duration-150 ease-in-out" type="submit">Сохранить</button>
+      </div>
+      <!-- Конец Полей -->
+    </form>
+    <!-- Сменить пароль -->
+    <div class="flex justify-center">
+      <a href="{% url 'authentication:password_change' %}" class="font-medium text-sm text-green-600 hover:text-green-500 my-4">Сменить пароль авторизации?</a>
+    </div>
+    <!-- Конец Сменить пароль -->
+  </div>
+</main>
+{% endblock content %}

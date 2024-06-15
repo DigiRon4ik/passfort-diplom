@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"/>
+    <title>PassFort</title>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <section class="relative bg-cover bg-center h-screen" style="background-image: url({% static 'img/landing_background.jpg' %});">
+        <div class="absolute bg-black opacity-50 inset-0"></div>
+        <div class="relative flex items-center justify-center h-full">
+            <div class="flex justify-center flex-col text-center text-white">
+                <svg class="h-64 fill-green-600 stroke-white stroke-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                </svg>
+                <h1 class="text-5xl font-bold mb-4">PassFort</h1>
+                <p class="text-3xl mb-8">Надежно защищайте свои пароли</p>
+                <a href="#start" class="text-xl bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg">Получить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Описание приложения -->
+    <section class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8">Что такое PassFort?</h2>
+            <div class="flex flex-wrap items-center">
+                <div class="w-full md:w-1/2 px-4">
+                    <img src="{% static 'img/interface.jpeg' %}" alt="Description Image" class="rounded-lg shadow-lg">
+                </div>
+                <div class="w-full md:w-1/2 px-4 mt-8 md:mt-0">
+                    <p class="text-lg leading-relaxed mb-4"><span class="font-bold">PassFort</span> - это безопасный менеджер паролей, который сохраняет ваши пароли в целости и сохранности. Наше передовое шифрование гарантирует, что ваши пароли будут доступны только вам.</p>
+                    <p class="text-lg leading-relaxed">С <span class="font-bold">PassFort</span> вы можете хранить, управлять и извлекать свои пароли на любом устройстве, в любом месте и в любое время.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Почему стоит выбрать PassFort -->
+    <section class="py-20 bg-gray-200 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8">Почему стоит выбрать PassFort?</h2>
+            <div class="flex flex-wrap justify-center">
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <img src="{% static 'svg/security_shield_green.svg' %}" alt="Feature Image" class="mx-auto mb-4 h-32 w-32">
+                        <h3 class="text-xl font-semibold mb-2">Продвинутая безопасность</h3>
+                        <p class="text-gray-700">Мы используем лучшие технологии шифрования на сегодняшний день, чтобы обеспечить безопасность ваших паролей от несанкционированного доступа.</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <img src="{% static 'svg/interface.svg' %}" alt="Feature Image" class="mx-auto mb-4 h-32 w-32">
+                        <h3 class="text-xl font-semibold mb-2">Простота в использовании</h3>
+                        <p class="text-gray-700">Наш интуитивно понятный интерфейс упрощает хранение и поиск паролей даже для пользователей, не обладающих техническими знаниями.</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/3 px-4 mb-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                        <img src="{% static 'svg/iphone_x.svg' %}" alt="Feature Image" class="mx-auto mb-4 h-32 w-32">
+                        <h3 class="text-xl font-semibold mb-2">Кросс-платформенный</h3>
+                        <p class="text-gray-700">Получите доступ к своим паролям с любого устройства с любой точки мира, будь то смартфон, планшет или настольный компьютер.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Введение нового пользователя -->
+    <section id="start" class="py-20 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-8">Новичок в PassFort?</h2>
+            <p class="text-2xl leading-relaxed mb-8">Приступить к работе очень просто.<br>Нажмите кнопку ниже, чтобы создать свою учетную запись и начать защищать свои пароли уже сегодня.</p>
+            <a href="{% if user.is_authenticated %}{% url 'authentication:profile' %}{% else %}{% url 'authentication:registration' %}{% endif %}"   
+            class="text-xl bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg">Начать</a>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p class="mb-4">&copy; 2024 PassFort. Все права защищены.</p>
+            <p class="text-sm">PassFort стремится обеспечить безопасность и конфиденциальность ваших данных.</p>
+            <p class="text-sm">Разработчик - Анхаев Абдулла</p>
+        </div>
+    </footer>
+</body>
+</html>
