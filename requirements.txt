@@ -2,7 +2,7 @@ asgiref==3.8.1
 asttokens==2.4.1
 colorama==0.4.6
 decorator==5.1.1
-Django==5.0.7
+Django==5.0.8
 django-extensions==3.2.3
 executing==2.0.1
 graphviz==0.20.3
