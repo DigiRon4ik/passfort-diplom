@@ -28,22 +28,12 @@
 
 ---
 
-### Screenshots:
-1) Main/Home | Add Password
+> For some reason GitHub refuses to work properly with Gifs, so I'll leave an album of gifs and a description of each gif [here](https://ibb.co/album/6YBfgQ "Album"). Russian-speaking users can download the presentation from the repository, these gifs will be there as well.
+
+---
+
+### Screenshot:
+- Main/Home | Add Password
 <img src="https://i.ibb.co/h2f0bvW/gif1.gif" alt="Main/Home | Add Password" border="0">
-2) Phone Adaptive
-<img src="https://i.ibb.co/M2BJf4p/Gif2.gif" alt="Phone adaptive" border="0">
-3) Login
-<img src="https://i.ibb.co/qMK6bRq/gif3.gif" alt="Login" border="0">
-4) Registration
-<img src="https://i.ibb.co/6B3nLrm/gif4.gif" alt="Registration" border="0">
-5) Password Generator
-<img src="https://i.ibb.co/ckRsD5K/gif5.gif" alt="Password Generator" border="0">
-6) Quick Overview
-<img src="https://i.ibb.co/3TvFbtm/gif6.gif" alt="Quick Overview" border="0">
-7) Password Recovery by Email
-<img src="https://i.ibb.co/2M93D0L/gif7.gif" alt="Password Recovery by Email" border="0">
-8) Buttons for Quick Use
-<img src="https://i.ibb.co/vhxzcRC/gif8.gif" alt="Buttons for Quick Use" border="0">
 
 ---
